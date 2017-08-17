@@ -21,7 +21,7 @@
       "19": "images/icon/icon_19.png",
       "38": "images/icon/icon_38.png"
     },
-    "default_title": "Link Checker",
+    "default_title": "Tab Controller",
     "default_popup": "popup.html"
   },
 
