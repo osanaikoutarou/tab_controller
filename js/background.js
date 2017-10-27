@@ -13,12 +13,46 @@
   });
 
   chrome.tabs.onActivated.addListener(function(activeInfo) {
-	window.alert('a');
+	// window.alert('b');
+    //
+    // console.log("aaaaaaaaaa");
+
+    // タブがアクティベーションした時間が取れる
+    var date = new Date();
+    // window.alert(date);
 
 	// タブを消す処理
-	chrome.tabs.getSelected(null, function(tab){
-		//chrome.tabs.remove(tab.id, function() {});
-	});
+	// chrome.tabs.getSelected(null, function(tab){
+	// 	//chrome.tabs.remove(tab.id, function() {});
+	// });
+
+
+    chrome.browser.browserAction.onClicked.addListener((tab) => {
+      var getting = browser.windows.getAll({
+        populate: true,
+        windowTypes: ["normal"]
+      });
+      getting.then(function(windowInfoArray) {
+          for (windowInfo of windowInfoArray) {
+              console.log(`Window: ${windowInfo.id}`);
+              console.log(windowInfo.tab.map((tab) => {return tab.url}));
+          }
+      }, onError);
+    });
+
+    // なんか動いてないな
+    // https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/windows/getAll
+
+    // chrome.tabs.getAllInWindow(null, function(tabs){
+    //     for (var i = 0; i < tabs.length; i++) {
+    //         //chrome.tabs.sendRequest(tabs[i].id, { action: "xxx" });
+    //         console.log('tab id');
+    //         console.log(tabs[i].id);
+    //     }
+    // });
+
+
+
     return chrome.tabs.sendMessage(activeInfo.tabId, {
       type: 'onActivated'
     });
