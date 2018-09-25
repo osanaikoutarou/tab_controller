@@ -27,17 +27,26 @@
 	// });
 
 
-    chrome.browser.browserAction.onClicked.addListener((tab) => {
-      var getting = browser.windows.getAll({
-        populate: true,
-        windowTypes: ["normal"]
-      });
-      getting.then(function(windowInfoArray) {
-          for (windowInfo of windowInfoArray) {
-              console.log(`Window: ${windowInfo.id}`);
-              console.log(windowInfo.tab.map((tab) => {return tab.url}));
-          }
-      }, onError);
+    // chrome.browser.browserAction.onClicked.addListener((tab) => {
+    //   var getting = browser.windows.getAll({
+    //     populate: true,
+    //     windowTypes: ["normal"]
+    //   });
+    //   getting.then(function(windowInfoArray) {
+    //       for (windowInfo of windowInfoArray) {
+    //           console.log(`Window: ${windowInfo.id}`);
+    //           console.log(windowInfo.tab.map((tab) => {return tab.url}));
+    //       }
+    //   }, onError);
+    // });
+
+    chrome.windows.getAll({populate:true},function(windows){
+        windows.forEach(function(window){
+            window.tabs.forEach(function(tab){
+                //collect all of the urls here, I will just log them instead
+                console.log(tab.url);
+            });
+        });
     });
 
     // なんか動いてないな
